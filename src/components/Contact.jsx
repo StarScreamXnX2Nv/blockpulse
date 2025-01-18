@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    message: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    message: "",
   });
 
   const handleChange = (e) => {
@@ -14,88 +14,62 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Submitted Data:", formData);
+    alert("Your message has been sent!");
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 p-6 bg-white dark:bg-[#121212] rounded-lg shadow-lg min-h-screen flex flex-col">
-      <h1 className="text-4xl font-bold text-center mb-6 text-[#00df9a] dark:text-[#00df9a]">
-        Get in Touch
-      </h1>
-      <p className="text-lg text-center text-gray-700 dark:text-gray-300 mb-8">
-        Reach out for collaborations and inquiries.
-      </p>
+    <div className="flex justify-center items-center min-h-screen bg-white dark:bg-[#121212] p-6">
+      <div className="w-full max-w-lg bg-gray-100 dark:bg-[#1a1a1a] p-8 rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold text-center text-[#00df9a]">Get in Touch</h2>
 
-      <div className="flex justify-center">
-        <form 
-          onSubmit={handleSubmit} 
-          className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md w-full md:w-3/4 lg:w-2/3"
-        >
+        <form onSubmit={handleSubmit} className="mt-6">
           {/* First Name & Last Name */}
-          <div className="flex flex-col md:flex-row gap-4 mb-4">
-            <div className="w-full">
-              <label className="block text-gray-700 dark:text-gray-300 font-bold">First Name *</label>
-              <input 
-                type="text" 
-                name="firstName" 
-                value={formData.firstName} 
-                onChange={handleChange} 
-                required 
-                placeholder="Enter your first name"
-                className="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white"
-              />
-            </div>
-            <div className="w-full">
-              <label className="block text-gray-700 dark:text-gray-300 font-bold">Last Name *</label>
-              <input 
-                type="text" 
-                name="lastName" 
-                value={formData.lastName} 
-                onChange={handleChange} 
-                required 
-                placeholder="Enter your last name"
-                className="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white"
-              />
-            </div>
-          </div>
-
-          {/* Email */}
-          <div className="mb-4">
-            <label className="block text-gray-700 dark:text-gray-300 font-bold">Email Address *</label>
-            <input 
-              type="email" 
-              name="email" 
-              value={formData.email} 
-              onChange={handleChange} 
-              required 
-              placeholder="Enter your email address"
-              className="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white"
+          <div className="flex space-x-4">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={handleChange}
+              className="w-1/2 p-3 border rounded-lg bg-white dark:bg-[#2c2c2c] text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none"
+            />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={handleChange}
+              className="w-1/2 p-3 border rounded-lg bg-white dark:bg-[#2c2c2c] text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none"
             />
           </div>
 
+          {/* Email Address */}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full mt-4 p-3 border rounded-lg bg-white dark:bg-[#2c2c2c] text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none"
+          />
+
           {/* Message */}
-          <div className="mb-4">
-            <label className="block text-gray-700 dark:text-gray-300 font-bold">What can we help with? *</label>
-            <textarea 
-              name="message" 
-              value={formData.message} 
-              onChange={handleChange} 
-              required 
-              placeholder="Enter your message"
-              className="w-full p-3 border rounded-lg bg-white dark:bg-gray-700 dark:text-white"
-              rows="5"
-            ></textarea>
-          </div>
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            value={formData.message}
+            onChange={handleChange}
+            className="w-full mt-4 p-3 border rounded-lg bg-white dark:bg-[#2c2c2c] text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none h-32"
+          />
 
           {/* Submit Button */}
-          <div className="flex justify-center">
-            <button 
-              type="submit"
-              className="bg-[#00df9a] dark:bg-[#007a4e] text-black dark:text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-[#00c482] dark:hover:bg-[#005f3b] transition"
-            >
-              Submit
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full mt-6 p-3 bg-[#00df9a] text-black font-bold rounded-lg hover:bg-[#00c482] transition"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>
