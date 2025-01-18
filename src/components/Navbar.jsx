@@ -38,6 +38,7 @@ const Navbar = () => {
           <li className='p-4 hover:text-[#00796b]'><Link to="/services">Services</Link></li>
           <li className='p-4 hover:text-[#00796b]'><Link to="/about">About</Link></li>
           <li className='p-4 hover:text-[#00796b]'><Link to="/contact">Contact</Link></li>
+          <li className='p-4 hover:text-[#00796b]'><Link to="/explore">Explore</Link></li>
         </ul>
 
         {/* Theme Toggle Button (Desktop) */}
@@ -70,6 +71,7 @@ const Navbar = () => {
             <li className='p-4 border-b border-gray-600'><Link to="/" onClick={handleNav}>Home</Link></li>
             <li className='p-4 border-b border-gray-600'><Link to="/services" onClick={handleNav}>Services</Link></li>
             <li className='p-4 border-b border-gray-600'><Link to="/about" onClick={handleNav}>About</Link></li>
+            <li className='p-4 border-b border-gray-600'><Link to="/explore" onClick={handleNav}>Explore</Link></li>
             <li className='p-4'><Link to="/contact" onClick={handleNav}>Contact</Link></li>
           </ul>
         </div>

@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
+import Explore from './components/Explore'; 
 import Services from './components/Services';
 import Footer from './components/Footer';
 import ThemeToggle from './components/ThemeToggle';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/transactions" element={<Transactions />} /> 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/explore" element={<Explore />} />
         </Routes>
         <Footer />
       </div>
