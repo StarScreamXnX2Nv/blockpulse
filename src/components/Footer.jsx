@@ -10,7 +10,7 @@ const Footer = () => {
       const documentHeight = document.documentElement.scrollHeight;
       const scrollPosition = window.scrollY + windowHeight;
 
-      // Show footer only when user reaches the bottom
+      // Show footer only when the user reaches the bottom
       setIsVisible(scrollPosition >= documentHeight - 10);
     };
 
@@ -19,10 +19,12 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer 
-      className={`w-full ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity duration-500
-      bg-gray-800 text-white dark:bg-[#121212] dark:text-gray-300 p-8 text-center mt-10 border-t-4 border-[#00df9a]`}>
-      
+    <footer
+      className={`w-full ${
+        isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      } transition-opacity duration-500 
+      bg-gray-200 dark:bg-[#121212] text-black dark:text-gray-300 p-8 text-center mt-10 border-t-4 border-[#00df9a]`}
+    >
       <h2 className="text-xl font-bold text-[#00df9a]">BlockPulse</h2>
       <p>Explore blockchain transactions, blocks, and more with BlockPulse.</p>
       <div className="flex justify-center space-x-4 mt-4">
