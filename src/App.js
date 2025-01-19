@@ -11,6 +11,9 @@ import Footer from './components/Footer';
 import ThemeToggle from './components/ThemeToggle';
 import Blocks from './components/Blocks';
 import Transactions from './components/Transactions';
+import BlockDetails from "./components/BlockDetails";
+import TransactionDetails from "./components/TransactionDetails";
+import SearchResults from "./components/SearchResults";
 function App() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
@@ -31,6 +34,13 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/" element={<Blocks />} />
+          <Route path="/block/:hash" element={<BlockDetails />} />
+          <Route path="/" element={<Transactions />} />
+          <Route path="/transaction/:hash" element={<TransactionDetails />} />
+          <Route path="/" element={<Transactions />} />
+         
+         <Route path="/search/:query" element={<SearchResults />} />
         </Routes>
         <Footer />
       </div>
