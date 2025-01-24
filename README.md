@@ -1,7 +1,14 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+react-router-dom (for navigation)
+tailwindcss (for styling)
+react-icons (for UI icons)
+chart.js (for real-time charts)
+socket.io-client (used for WebSockets)
+axios (if used for API requests)
+vercel (for deployment, optional)
+eslint (for linting)
 ## Available Scripts
 
 In the project directory, you can run:
