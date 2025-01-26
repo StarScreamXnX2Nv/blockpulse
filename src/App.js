@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Explore from "./components/Explore";
-import Services from "./components/Services";
-import Footer from "./components/Footer";
-import Blocks from "./components/Blocks";
-import Transactions from "./components/Transactions";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+
+// Pages
+import Home from "./components/pages/Home";
+import About from "./components/pages/About";
+import Contact from "./components/pages/Contact";
+import Explore from "./components/pages/Explore";
+import Services from "./components/pages/Services";
+import Blocks from "./components/pages/Blocks";
+import Transactions from "./components/pages/Transactions";
+import SearchResults from "./components/pages/SearchResults";
+import Dashboard from "./components/pages/Dashboard";
+
+// Details Pages
 import BlockDetails from "./components/BlockDetails";
 import TransactionDetails from "./components/TransactionDetails";
-import SearchResults from "./components/SearchResults";
-import Dashboard from "./components/Dashboard";
 
 function App() {
   const location = useLocation();
@@ -35,8 +39,6 @@ function App() {
     <div className={`min-h-screen transition duration-300 ${theme === "dark" ? "bg-black text-white" : "bg-gray-100 text-black"}`}>
       {/* 🌙 Pass theme & toggle function to Navbar */}
       <Navbar theme={theme} toggleTheme={toggleTheme} />
-
-      {isHomePage && <Home />}
 
       <div className="pt-24">
         <Routes>

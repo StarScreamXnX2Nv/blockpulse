@@ -13,7 +13,7 @@ const SearchResults = () => {
         const response = await fetch(`https://explorer.mtw-testnet.com/search/?key=${query}`);
         const data = await response.json();
 
-        // ✅ Filter out empty objects to remove the empty card
+        //  Filter out empty objects to remove the empty card
         const filteredData = data.filter(
           (result) => Object.values(result).some((value) => value !== null && value !== "")
         );
@@ -42,7 +42,7 @@ const SearchResults = () => {
       {/* Responsive Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {searchResults.map((result, index) => (
-          result.Id || result.blockNumber || result.hash ? ( // ✅ Ensure the object has valid data
+          result.Id || result.blockNumber || result.hash ? ( //  Ensure the object has valid data
             <div
               key={index}
               className="bg-gray-800 text-white p-6 rounded-lg shadow-md border border-gray-700"

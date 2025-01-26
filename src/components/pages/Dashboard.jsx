@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import CryptoPrices from "./CryptoPrices"; // Import CryptoPrices Component
+import CryptoPrices from "../../dashboard/CryptoPrices"; // Import CryptoPrices Component
 
 const Dashboard = ({ theme }) => {
   const [blocks, setBlocks] = useState([]);

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSun, FaMoon, FaSearch } from "react-icons/fa";
+import { FaSun, FaMoon, FaSearch, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = ({ theme, toggleTheme }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSearch = (e) => {
@@ -21,7 +22,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         {/* Logo */}
         <h1 className="text-2xl font-bold text-[#00df9a]">BlockPulse</h1>
 
-        {/* Search Bar */}
+        {/* Search Bar (Hidden on Small Screens) */}
         <form onSubmit={handleSearch} className="relative hidden md:flex">
           <input
             type="text"
@@ -35,7 +36,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           </button>
         </form>
 
-        {/* Navbar Links */}
+        {/* Navbar Links (Hidden on Mobile) */}
         <ul className="hidden md:flex space-x-6">
           <li><Link to="/" className="hover:text-[#00df9a]">Home</Link></li>
           <li><Link to="/services" className="hover:text-[#00df9a]">Services</Link></li>
@@ -52,6 +53,26 @@ const Navbar = ({ theme, toggleTheme }) => {
         >
           {theme === "dark" ? <FaSun size={20} className="text-yellow-400" /> : <FaMoon size={20} className="text-gray-800" />}
         </button>
+
+        {/* 🍔 Hamburger Menu Button */}
+        <button
+          className="md:hidden p-2 rounded-full transition-all duration-300 hover:bg-gray-700"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <FaTimes size={24} className="text-[#00df9a]" /> : <FaBars size={24} className="text-[#00df9a]" />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`md:hidden absolute top-16 left-0 w-full transition-all duration-300 ${theme === "dark" ? "bg-black text-white" : "bg-white text-black"} ${menuOpen ? "block" : "hidden"}`}>
+        <ul className="flex flex-col space-y-4 p-4 text-center">
+          <li><Link to="/" onClick={() => setMenuOpen(false)} className="hover:text-[#00df9a]">Home</Link></li>
+          <li><Link to="/services" onClick={() => setMenuOpen(false)} className="hover:text-[#00df9a]">Services</Link></li>
+          <li><Link to="/about" onClick={() => setMenuOpen(false)} className="hover:text-[#00df9a]">About</Link></li>
+          <li><Link to="/contact" onClick={() => setMenuOpen(false)} className="hover:text-[#00df9a]">Contact</Link></li>
+          <li><Link to="/explore" onClick={() => setMenuOpen(false)} className="hover:text-[#00df9a]">Explore</Link></li>
+          <li><Link to="/dashboard" onClick={() => setMenuOpen(false)} className="hover:text-[#00df9a]">Dashboard</Link></li>
+        </ul>
       </div>
     </div>
   );
