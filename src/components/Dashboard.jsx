@@ -1,0 +1,103 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import CryptoPrices from "./CryptoPrices"; // Import CryptoPrices Component
+
+const Dashboard = ({ theme }) => {
+  const [blocks, setBlocks] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const limit = 5; // Limit for recent transactions and blocks
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const blockRes = await axios.get(`https://explorer.mtw-testnet.com/blocks/?page=1&limit=${limit}`);
+        const txRes = await axios.get(`https://explorer.mtw-testnet.com/transactions/?page=1&limit=${limit}`);
+
+        setBlocks(blockRes.data.data);
+        setTransactions(txRes.data.data);
+      } catch (err) {
+        setError("Failed to load dashboard data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  return (
+    <div className={`min-h-screen p-6 transition-all duration-300 ${theme === "dark" ? "bg-black text-white" : "bg-gray-100 text-black"}`}>
+      <h1 className="text-3xl font-bold text-center mb-6 text-[#00df9a]">Dashboard</h1>
+
+      {loading ? (
+        <p className="text-center text-gray-500">Loading data...</p>
+      ) : error ? (
+        <p className="text-center text-red-500">{error}</p>
+      ) : (
+        <>
+          {/* Transactions Section */}
+          <h2 className="text-2xl font-bold text-[#00df9a] mb-4 text-center">Latest Transactions</h2>
+          <div className="overflow-x-auto">
+            <table className={`w-full border-collapse border ${theme === "dark" ? "border-gray-700 bg-gray-900 text-white" : "border-gray-300 bg-white text-black"}`}>
+              <thead>
+                <tr className="bg-[#00df9a] text-black">
+                  <th className="border p-4">ID</th>
+                  <th className="border p-4">Block Number</th>
+                  <th className="border p-4">Transaction Hash</th>
+                  <th className="border p-4">From</th>
+                  <th className="border p-4">To</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((tx) => (
+                  <tr key={tx.hash} className={`${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"}`}>
+                    <td className="border p-4">{tx.Id}</td>
+                    <td className="border p-4">{tx.blockNumber}</td>
+                    <td className="border p-4 break-all">
+                      <Link to={`/transaction/${tx.hash}`} className="text-blue-500 hover:underline">
+                        {tx.hash}
+                      </Link>
+                    </td>
+                    <td className="border p-4 break-all">{tx.from}</td>
+                    <td className="border p-4 break-all">{tx.to}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h2 className="text-2xl font-bold text-[#00df9a] mt-8 mb-4 text-center">Latest Blocks</h2>
+          <div className="overflow-x-auto">
+            <table className={`w-full border-collapse border ${theme === "dark" ? "border-gray-700 bg-gray-900 text-white" : "border-gray-300 bg-white text-black"}`}>
+              <thead>
+                <tr className="bg-[#00df9a] text-black">
+                  <th className="border p-4">ID</th>
+                  <th className="border p-4">Gas Used</th>
+                  <th className="border p-4">Base Fee</th>
+                  <th className="border p-4">Block Hash</th>
+                </tr>
+              </thead>
+              <tbody>
+                {blocks.map((block) => (
+                  <tr key={block.Id} className={`${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"}`}>
+                    <td className="border p-4">{block.Id}</td>
+                    <td className="border p-4">{block.gasUsed}</td>
+                    <td className="border p-4">{block.baseFeePerGas}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* ✅ Add Crypto Prices Component */}
+          <CryptoPrices theme={theme} />
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Dashboard;

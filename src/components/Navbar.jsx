@@ -1,117 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from 'react-icons/ai';
-import { FaSun, FaMoon } from 'react-icons/fa';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaSun, FaMoon, FaSearch } from "react-icons/fa";
 
-const Navbar = () => {
-  const [nav, setNav] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
-  const [searchQuery, setSearchQuery] = useState('');
+const Navbar = ({ theme, toggleTheme }) => {
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-
-  const handleNav = () => {
-    setNav(!nav);
-  };
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.documentElement.classList.remove(theme);
-    document.documentElement.classList.add(newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
-
-  useEffect(() => {
-    document.documentElement.classList.add(theme);
-  }, [theme]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
+    if (searchQuery.trim() !== "") {
       navigate(`/search/${searchQuery}`);
-      setSearchQuery('');
+      setSearchQuery(""); // Clear input after search
     }
   };
 
   return (
-    <div className={`fixed top-0 left-0 w-full z-10 transition-all duration-300 
-    ${theme === 'light' ? 'bg-[#e0e0e0] text-black' : 'bg-[#121212] text-white'}`}>
-      <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4'>
-        <h1 className={`w-full text-3xl font-bold ${theme === 'light' ? 'text-[#00df9a]' : 'text-[#00df9a]'}`}>
-          BlockPulse
-        </h1>
+    <div className={`fixed top-0 left-0 w-full z-10 transition-all duration-300 ${theme === "dark" ? "bg-black text-white" : "bg-white text-black"}`}>
+      <div className="flex justify-between items-center h-16 max-w-[1240px] mx-auto px-4">
+        
+        {/* Logo */}
+        <h1 className="text-2xl font-bold text-[#00df9a]">BlockPulse</h1>
 
-        {/* Search Bar (Desktop) */}
-        <form onSubmit={handleSearch} className="relative hidden md:flex items-center">
+        {/* Search Bar */}
+        <form onSubmit={handleSearch} className="relative hidden md:flex">
           <input
             type="text"
-            placeholder="Search by hash, block, or address"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="px-4 py-2 w-64 rounded-lg text-black border border-gray-400 dark:border-gray-600"
+            placeholder="Search by hash, block, or address..."
+            className={`px-4 py-2 rounded-md focus:outline-none transition-all duration-300 border ${theme === "dark" ? "bg-gray-800 text-white border-gray-600" : "bg-gray-200 text-black border-gray-400"}`}
           />
-          <button type="submit" className="absolute right-2 text-gray-500 dark:text-gray-400">
-            <AiOutlineSearch size={20} />
+          <button type="submit" className="absolute right-3 top-2 text-gray-500 hover:text-[#00df9a]">
+            <FaSearch size={18} />
           </button>
         </form>
 
-        {/* Desktop Menu */}
-        <ul className='hidden md:flex'>
-          <li className='p-4 hover:text-[#00796b]'><Link to="/">Home</Link></li>
-          <li className='p-4 hover:text-[#00796b]'><Link to="/services">Services</Link></li>
-          <li className='p-4 hover:text-[#00796b]'><Link to="/about">About</Link></li>
-          <li className='p-4 hover:text-[#00796b]'><Link to="/contact">Contact</Link></li>
-          <li className='p-4 hover:text-[#00796b]'><Link to="/explore">Explore</Link></li>
+        {/* Navbar Links */}
+        <ul className="hidden md:flex space-x-6">
+          <li><Link to="/" className="hover:text-[#00df9a]">Home</Link></li>
+          <li><Link to="/services" className="hover:text-[#00df9a]">Services</Link></li>
+          <li><Link to="/about" className="hover:text-[#00df9a]">About</Link></li>
+          <li><Link to="/contact" className="hover:text-[#00df9a]">Contact</Link></li>
+          <li><Link to="/explore" className="hover:text-[#00df9a]">Explore</Link></li>
+          <li><Link to="/dashboard" className="hover:text-[#00df9a]">Dashboard</Link></li>
         </ul>
 
-        {/* Theme Toggle Button (Desktop) */}
-        <div className='hidden md:block ml-4 cursor-pointer' onClick={toggleTheme}>
-          {theme === 'light' ? <FaMoon size={20} className="text-[#333]" /> : <FaSun size={20} className="text-yellow-400" />}
-        </div>
-
-        {/* Mobile Menu Icon and Theme Toggle */}
-        <div className='flex items-center md:hidden'>
-          {/* Theme Toggle Button (Mobile) */}
-          <div className='mr-6 cursor-pointer' onClick={toggleTheme}>
-            {theme === 'light' ? <FaMoon size={20} className="text-[#333]" /> : <FaSun size={20} className="text-yellow-400" />}
-          </div>
-
-          {/* Mobile Menu Icon */}
-          <div onClick={handleNav}>
-            {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
-          </div>
-        </div>
-
-        {/* Mobile Sidebar Menu */}
-        <div className={nav 
-        ? `fixed left-0 top-0 w-[60%] h-full border-r ${theme === 'light' ? 'border-r-gray-400 bg-[#f0f4f8]' : 'border-r-gray-900 bg-[#000300]'} ease-in-out duration-500`
-        : 'fixed left-[-100%]'}>
-          <h1 className={`w-full text-3xl font-bold m-4 ${theme === 'light' ? 'text-[#00796b]' : 'text-[#00df9a]'}`}>
-            MTW
-          </h1>
-
-          {/* Search Bar (Mobile) */}
-          <form onSubmit={handleSearch} className="flex items-center p-4">
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-4 py-2 w-full rounded-lg text-black border border-gray-400 dark:border-gray-600"
-            />
-            <button type="submit" className="ml-2 text-gray-500 dark:text-gray-400">
-              <AiOutlineSearch size={20} />
-            </button>
-          </form>
-
-          <ul className='uppercase p-4'>
-            <li className='p-4 border-b border-gray-600'><Link to="/" onClick={handleNav}>Home</Link></li>
-            <li className='p-4 border-b border-gray-600'><Link to="/services" onClick={handleNav}>Services</Link></li>
-            <li className='p-4 border-b border-gray-600'><Link to="/about" onClick={handleNav}>About</Link></li>
-            <li className='p-4 border-b border-gray-600'><Link to="/explore" onClick={handleNav}>Explore</Link></li>
-            <li className='p-4'><Link to="/contact" onClick={handleNav}>Contact</Link></li>
-          </ul>
-        </div>
+        {/* 🌙 Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          className="ml-4 p-2 rounded-full transition-all duration-300 bg-gray-800 text-white hover:bg-gray-600"
+        >
+          {theme === "dark" ? <FaSun size={20} className="text-yellow-400" /> : <FaMoon size={20} className="text-gray-800" />}
+        </button>
       </div>
     </div>
   );

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-const Explore = () => {
+const Explore = ({ theme }) => {
   const [symbol, setSymbol] = useState("BTC");
   const [chartData, setChartData] = useState({ labels: [], data: [] });
   const [price, setPrice] = useState(null);
   const [priceChange, setPriceChange] = useState(null);
   const chartRef = useRef(null);
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
+  // WebSocket for real-time ticker
   useEffect(() => {
     const ws = new WebSocket("wss://mtickers.mtw-testnet.com");
     ws.onmessage = (event) => {
@@ -22,8 +22,8 @@ const Explore = () => {
         setPriceChange(newChange);
 
         setChartData((prevState) => {
-          const updatedLabels = [...prevState.labels, newTime].slice(-20); // Keep last 20 timestamps
-          const updatedData = [...prevState.data, newPrice].slice(-20); // Keep last 20 prices
+          const updatedLabels = [...prevState.labels, newTime].slice(-20);
+          const updatedData = [...prevState.data, newPrice].slice(-20);
           return { labels: updatedLabels, data: updatedData };
         });
       }
@@ -31,6 +31,7 @@ const Explore = () => {
     return () => ws.close();
   }, [symbol]);
 
+  // Chart Rendering
   useEffect(() => {
     if (chartRef.current) {
       const ctx = chartRef.current.getContext("2d");
@@ -94,9 +95,7 @@ const Explore = () => {
       className={`max-w-6xl mx-auto mt-10 p-6 rounded-lg shadow-lg min-h-screen transition-all duration-300
       ${theme === "light" ? "bg-white text-black" : "bg-[#121212] text-white"}`}
     >
-      <h1 className="text-3xl font-bold text-center mb-6 text-[#00df9a]">
-        Explore
-      </h1>
+      <h1 className="text-3xl font-bold text-[#00df9a] mb-6">Explore</h1>
 
       {/* Coin Selection */}
       <div className="flex justify-center gap-4 mb-6">
@@ -127,7 +126,11 @@ const Explore = () => {
             Real Time Ticker ({symbol})
           </h2>
           <div className="text-3xl font-bold mt-4">{price || "Loading..."}</div>
-          <div className={`text-lg mt-2 ${priceChange < 0 ? "text-red-500" : "text-green-500"}`}>
+          <div
+            className={`text-lg mt-2 ${
+              priceChange < 0 ? "text-red-500" : "text-green-500"
+            }`}
+          >
             {priceChange < 0 ? "▼" : "▲"} {priceChange}%
           </div>
         </div>

@@ -13,9 +13,9 @@ const SearchResults = () => {
         const response = await fetch(`https://explorer.mtw-testnet.com/search/?key=${query}`);
         const data = await response.json();
 
-        // ✅ Filter out empty results to prevent the first empty table from showing
-        const filteredData = data.filter((result) =>
-          Object.values(result).some((value) => value !== null && value !== "")
+        // ✅ Filter out empty objects to remove the empty card
+        const filteredData = data.filter(
+          (result) => Object.values(result).some((value) => value !== null && value !== "")
         );
 
         setSearchResults(filteredData);
@@ -34,23 +34,31 @@ const SearchResults = () => {
   if (searchResults.length === 0) return <p className="text-center text-gray-500">No results found.</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center text-[#00df9a] mb-6">Search Results</h1>
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-3xl md:text-4xl font-bold text-center text-[#00df9a] mb-6">
+        Search Results
+      </h1>
 
-      {/* ✅ Hide empty table completely when there are no valid results */}
-      {searchResults.length > 0 &&
-        searchResults.map((result, index) => (
-          <div key={index} className="bg-gray-800 text-white p-6 mb-4 rounded-lg shadow-md">
-            {result.Id && <p><strong>ID:</strong> {result.Id}</p>}
-            {result.blockNumber && <p><strong>Block Number:</strong> {result.blockNumber}</p>}
-            {result.blockHash && <p><strong>Block Hash:</strong> {result.blockHash}</p>}
-            {result.hash && <p><strong>Transaction Hash:</strong> {result.hash}</p>}
-            {result.from && <p><strong>From:</strong> {result.from}</p>}
-            {result.to && <p><strong>To:</strong> {result.to}</p>}
-            {result.gasLimit && <p><strong>Gas Limit:</strong> {result.gasLimit}</p>}
-            {result.gasPrice && <p><strong>Gas Price:</strong> {result.gasPrice}</p>}
-          </div>
+      {/* Responsive Grid Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {searchResults.map((result, index) => (
+          result.Id || result.blockNumber || result.hash ? ( // ✅ Ensure the object has valid data
+            <div
+              key={index}
+              className="bg-gray-800 text-white p-6 rounded-lg shadow-md border border-gray-700"
+            >
+              {result.Id && <p className="text-lg"><strong>ID:</strong> {result.Id}</p>}
+              {result.blockNumber && <p className="text-lg"><strong>Block Number:</strong> {result.blockNumber}</p>}
+              {result.blockHash && <p className="text-lg break-all"><strong>Block Hash:</strong> {result.blockHash}</p>}
+              {result.hash && <p className="text-lg break-all"><strong>Transaction Hash:</strong> {result.hash}</p>}
+              {result.from && <p className="text-lg break-all"><strong>From:</strong> {result.from}</p>}
+              {result.to && <p className="text-lg break-all"><strong>To:</strong> {result.to}</p>}
+              {result.gasLimit && <p className="text-lg"><strong>Gas Limit:</strong> {result.gasLimit}</p>}
+              {result.gasPrice && <p className="text-lg"><strong>Gas Price:</strong> {result.gasPrice}</p>}
+            </div>
+          ) : null // 🚀 Prevent empty cards from rendering
         ))}
+      </div>
     </div>
   );
 };
