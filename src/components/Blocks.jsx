@@ -67,7 +67,7 @@ const Blocks = () => {
               </thead>
               <tbody>
                 {blocks.map((block) => (
-                  <tr key={block.Id} className="hover:bg-gray-200 text-center">
+                  <tr key={block.Id} className=" text-center">
                     <td className="border p-4">{block.Id}</td>
                     <td className="border p-4">{block.gasUsed}</td>
                     <td className="border p-4">{block.gasLimit}</td>

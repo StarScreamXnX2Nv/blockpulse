@@ -69,6 +69,16 @@ const Dashboard = ({ theme }) => {
             </table>
           </div>
 
+          {/* Button to View All Transactions */}
+          <div className="text-center mt-4">
+            <Link to="/transactions">
+              <button className="px-6 py-2 bg-[#00df9a] text-black rounded-lg hover:bg-green-400">
+                View all transactions
+              </button>
+            </Link>
+          </div>
+
+          {/* Blocks Section */}
           <h2 className="text-2xl font-bold text-[#00df9a] mt-8 mb-4 text-center">Latest Blocks</h2>
           <div className="overflow-x-auto">
             <table className={`w-full border-collapse border ${theme === "dark" ? "border-gray-700 bg-gray-900 text-white" : "border-gray-300 bg-white text-black"}`}>
@@ -86,13 +96,27 @@ const Dashboard = ({ theme }) => {
                     <td className="border p-4">{block.Id}</td>
                     <td className="border p-4">{block.gasUsed}</td>
                     <td className="border p-4">{block.baseFeePerGas}</td>
+                    <td className="border p-4 break-all">
+                      <Link to={`/block/${block.hash}`} className="text-blue-500 hover:underline">
+                        {block.hash}
+                      </Link>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          {/* ✅ Add Crypto Prices Component */}
+          {/* Button to View All Blocks */}
+          <div className="text-center mt-4">
+            <Link to="/blocks">
+              <button className="px-6 py-2 bg-[#00df9a] text-black rounded-lg hover:bg-green-400">
+                View all blocks
+              </button>
+            </Link>
+          </div>
+
+          {/* Add Crypto Prices Component */}
           <CryptoPrices theme={theme} />
         </>
       )}

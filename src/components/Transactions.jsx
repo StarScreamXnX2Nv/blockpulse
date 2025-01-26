@@ -68,7 +68,7 @@ const Transactions = () => {
               </thead>
               <tbody>
                 {transactions.map((tx) => (
-                  <tr key={tx.hash} className="hover:bg-gray-200 text-center">
+                  <tr key={tx.hash} className=" text-center">
                     <td className="border p-4">{tx.Id}</td>
                     <td className="border p-4">{tx.blockNumber}</td>
                     <td className="border p-4 text-xs break-all">{tx.blockHash}</td>
