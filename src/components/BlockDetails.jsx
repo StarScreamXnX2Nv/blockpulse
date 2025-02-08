@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const BlockDetails = () => {
-  const { hash } = useParams(); // Get block hash from the URL
+const BlockDetails = ({ theme }) => {
+  const { hash } = useParams(); // Get block hash from URL
   const [block, setBlock] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -15,9 +15,9 @@ const BlockDetails = () => {
           `https://explorer.mtw-testnet.com/blockByHash/?hash=${hash}`
         );
         setBlock(response.data);
-        setLoading(false);
       } catch (err) {
-        setError("Failed to fetch block details");
+        setError("Failed to fetch block details.");
+      } finally {
         setLoading(false);
       }
     };
@@ -26,7 +26,8 @@ const BlockDetails = () => {
   }, [hash]);
 
   return (
-    <div className="container mx-auto p-6">
+    <div
+      className="container mx-auto p-6">
       <h1 className="text-3xl font-bold text-center mb-6 text-[#00df9a]">
         Block Details
       </h1>
@@ -38,7 +39,7 @@ const BlockDetails = () => {
       ) : (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
           <p className="text-lg">
-            <strong>ID:</strong> {block.Id}
+            <strong>Block ID:</strong> {block.Id}
           </p>
           <p className="text-lg">
             <strong>Base Fee Per Gas:</strong> {block.baseFeePerGas}
@@ -49,10 +50,10 @@ const BlockDetails = () => {
           <p className="text-lg">
             <strong>Gas Used:</strong> {block.gasUsed}
           </p>
-          <p className="text-lg">
-            <strong>Hash:</strong> {block.hash}
+          <p className="text-lg break-words">
+            <strong>Block Hash:</strong> {block.hash}
           </p>
-          <p className="text-lg">
+          <p className="text-lg break-words">
             <strong>Parent Hash:</strong> {block.parentHash}
           </p>
         </div>

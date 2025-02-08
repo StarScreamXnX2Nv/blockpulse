@@ -38,9 +38,11 @@ const Dashboard = ({ theme }) => {
         <p className="text-center text-red-500">{error}</p>
       ) : (
         <>
-          {/* Transactions Section */}
+          {/* 📌 Transactions Section */}
           <h2 className="text-2xl font-bold text-[#00df9a] mb-4 text-center">Latest Transactions</h2>
-          <div className="overflow-x-auto">
+
+          {/* Table layout for larger screens */}
+          <div className="hidden md:block overflow-x-auto">
             <table className={`w-full border-collapse border ${theme === "dark" ? "border-gray-700 bg-gray-900 text-white" : "border-gray-300 bg-white text-black"}`}>
               <thead>
                 <tr className="bg-[#00df9a] text-black">
@@ -69,7 +71,20 @@ const Dashboard = ({ theme }) => {
             </table>
           </div>
 
-          {/* Button to View All Transactions */}
+          {/* Card layout for smaller screens */}
+          <div className="md:hidden flex flex-col space-y-4">
+            {transactions.map((tx) => (
+              <div key={tx.hash} className={`p-4 rounded-lg shadow-md border-2 transition-all duration-300 ${theme === "dark" ? "bg-gray-900 text-white border-gray-700" : "bg-white text-black border-gray-300"}`}>
+                <p><strong>ID:</strong> {tx.Id}</p>
+                <p><strong>Block Number:</strong> {tx.blockNumber}</p>
+                <p className="break-all"><strong>Transaction Hash:</strong> <Link to={`/transaction/${tx.hash}`} className="text-blue-400 hover:underline">{tx.hash}</Link></p>
+                <p className="break-all"><strong>From:</strong> {tx.from}</p>
+                <p className="break-all"><strong>To:</strong> {tx.to}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* View All Transactions Button */}
           <div className="text-center mt-4">
             <Link to="/transactions">
               <button className="px-6 py-2 bg-[#00df9a] text-black rounded-lg hover:bg-green-400">
@@ -78,9 +93,11 @@ const Dashboard = ({ theme }) => {
             </Link>
           </div>
 
-          {/* Blocks Section */}
+          {/* 📌 Blocks Section */}
           <h2 className="text-2xl font-bold text-[#00df9a] mt-8 mb-4 text-center">Latest Blocks</h2>
-          <div className="overflow-x-auto">
+
+          {/* Table layout for larger screens */}
+          <div className="hidden md:block overflow-x-auto">
             <table className={`w-full border-collapse border ${theme === "dark" ? "border-gray-700 bg-gray-900 text-white" : "border-gray-300 bg-white text-black"}`}>
               <thead>
                 <tr className="bg-[#00df9a] text-black">
@@ -107,7 +124,19 @@ const Dashboard = ({ theme }) => {
             </table>
           </div>
 
-          {/* Button to View All Blocks */}
+          {/* Card layout for smaller screens */}
+          <div className="md:hidden flex flex-col space-y-4">
+            {blocks.map((block) => (
+              <div key={block.Id} className={`p-4 rounded-lg shadow-md border-2 transition-all duration-300 ${theme === "dark" ? "bg-gray-900 text-white border-gray-700" : "bg-white text-black border-gray-300"}`}>
+                <p><strong>Block ID:</strong> {block.Id}</p>
+                <p><strong>Gas Used:</strong> {block.gasUsed}</p>
+                <p><strong>Base Fee:</strong> {block.baseFeePerGas}</p>
+                <p className="break-all"><strong>Block Hash:</strong> <Link to={`/block/${block.hash}`} className="text-blue-400 hover:underline">{block.hash}</Link></p>
+              </div>
+            ))}
+          </div>
+
+          {/* View All Blocks Button */}
           <div className="text-center mt-4">
             <Link to="/blocks">
               <button className="px-6 py-2 bg-[#00df9a] text-black rounded-lg hover:bg-green-400">

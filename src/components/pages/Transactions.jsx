@@ -53,8 +53,10 @@ const Transactions = () => {
           <p className="text-right text-lg font-bold">
             Total Transactions: {totalTransactions}
           </p>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-300">
+
+          {/* Display table on larger screens */}
+          <div className="hidden md:block overflow-x-auto">
+            <table className="w-full border-collapse border border-gray-300 text-sm md:text-base">
               <thead>
                 <tr className="bg-[#00df9a] text-white">
                   <th className="border p-4">ID</th>
@@ -68,7 +70,7 @@ const Transactions = () => {
               </thead>
               <tbody>
                 {transactions.map((tx) => (
-                  <tr key={tx.hash} className=" text-center">
+                  <tr key={tx.hash} className="text-center">
                     <td className="border p-4">{tx.Id}</td>
                     <td className="border p-4">{tx.blockNumber}</td>
                     <td className="border p-4 text-xs break-all">{tx.blockHash}</td>
@@ -89,12 +91,39 @@ const Transactions = () => {
             </table>
           </div>
 
+          {/* Display card layout on smaller screens */}
+          <div className="md:hidden flex flex-col space-y-4">
+            {transactions.map((tx) => (
+              <div
+                key={tx.hash}
+                className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+              >
+                <h2 className="text-lg font-bold text-[#00df9a]">
+                  Transaction ID: {tx.Id}
+                </h2>
+                <p><strong>Block Number:</strong> {tx.blockNumber}</p>
+                <p className="break-all overflow-hidden text-ellipsis">
+                  <strong>Block Hash:</strong> {tx.blockHash}
+                </p>
+                <p className="break-all overflow-hidden text-ellipsis">
+                  <strong>Transaction Hash:</strong>{" "}
+                  <Link to={`/transaction/${tx.hash}`} className="text-blue-400 hover:underline">
+                    {tx.hash}
+                  </Link>
+                </p>
+                <p className="break-all overflow-hidden text-ellipsis"><strong>From:</strong> {tx.from}</p>
+                <p className="break-all overflow-hidden text-ellipsis"><strong>To:</strong> {tx.to}</p>
+                <p><strong>Gas Limit:</strong> {tx.gasLimit}</p>
+              </div>
+            ))}
+          </div>
+
           {/* Pagination Controls */}
-          <div className="flex justify-between mt-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-2 sm:space-y-0">
             <button
               onClick={handlePrevious}
               disabled={page === 1}
-              className={`px-6 py-2 rounded-md text-white ${
+              className={`w-full sm:w-auto px-6 py-2 rounded-md text-white ${
                 page === 1 ? "bg-gray-400 cursor-not-allowed" : "bg-[#00df9a] hover:bg-green-700"
               }`}
             >
@@ -106,7 +135,7 @@ const Transactions = () => {
             <button
               onClick={handleNext}
               disabled={page >= Math.ceil(totalTransactions / limit)}
-              className={`px-6 py-2 rounded-md text-white ${
+              className={`w-full sm:w-auto px-6 py-2 rounded-md text-white ${
                 page >= Math.ceil(totalTransactions / limit) ? "bg-gray-400 cursor-not-allowed" : "bg-[#00df9a] hover:bg-green-700"
               }`}
             >

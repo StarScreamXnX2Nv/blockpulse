@@ -42,11 +42,20 @@ const About = () => {
         {/* Section 3 */}
         <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-center text-black dark:text-white">Our Team</h2>
-          <p className="text-lg text-gray-700 dark:text-gray-300 mt-2">
+          <p className="text-lg text-gray-700 dark:text-gray-300 mt-2 text-center">
             We are a diverse team of software engineering students. Our combined skills enable us 
             to develop a robust and reliable platform that meets the needs of our users. Each member 
             of our team brings a unique perspective and a shared commitment to excellence.
           </p>
+
+          {/* Team Members List */}
+          <ul className="mt-4 text-lg font-semibold text-center text-[#00df9a] dark:text-[#00df9a] space-y-2">
+            <li> Bashar Hosari</li>
+            <li> Kamel Dokhan</li>
+            <li> Yasser Sadi</li>
+            <li> Yousef Jirees</li>
+            <li> Adam Hasarme</li>
+          </ul>
         </div>
       </div>
     </div>

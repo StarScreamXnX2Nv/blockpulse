@@ -53,8 +53,10 @@ const Blocks = () => {
           <p className="text-right text-lg font-bold">
             Total Blocks: {totalBlocks}
           </p>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-300">
+
+          {/* 📌 Table layout for larger screens */}
+          <div className="hidden md:block overflow-x-auto">
+            <table className="w-full border-collapse border border-gray-300 text-sm md:text-base">
               <thead>
                 <tr className="bg-[#00df9a] text-white">
                   <th className="border p-4">Block ID</th>
@@ -67,7 +69,7 @@ const Blocks = () => {
               </thead>
               <tbody>
                 {blocks.map((block) => (
-                  <tr key={block.Id} className=" text-center">
+                  <tr key={block.Id} className="text-center">
                     <td className="border p-4">{block.Id}</td>
                     <td className="border p-4">{block.gasUsed}</td>
                     <td className="border p-4">{block.gasLimit}</td>
@@ -87,12 +89,38 @@ const Blocks = () => {
             </table>
           </div>
 
-          {/* Pagination Controls */}
-          <div className="flex justify-between mt-4">
+          {/*  Card layout for small screens */}
+          <div className="md:hidden flex flex-col space-y-4">
+            {blocks.map((block) => (
+              <div 
+                key={block.Id}
+                className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+              >
+                <h2 className="text-lg font-bold text-[#00df9a] ">
+                  Block ID: {block.Id}
+                </h2>
+                <p><strong>Gas Used:</strong> {block.gasUsed}</p>
+                <p><strong>Gas Limit:</strong> {block.gasLimit}</p>
+                <p><strong>Base Fee Per Gas:</strong> {block.baseFeePerGas}</p>
+                <p className="break-all overflow-hidden text-ellipsis">
+                  <strong>Extra Data:</strong> {block.extraData}
+                </p>
+                <p className="break-all overflow-hidden text-ellipsis">
+                  <strong>Block Hash:</strong>{" "}
+                  <Link to={`/block/${block.hash}`} className="text-blue-400 hover:underline">
+                    {block.hash}
+                  </Link>
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* 📌 Pagination Controls */}
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-2 sm:space-y-0">
             <button
               onClick={handlePrevious}
               disabled={page === 1}
-              className={`px-6 py-2 rounded-md text-white ${
+              className={`w-full sm:w-auto px-6 py-2 rounded-md text-white ${
                 page === 1 ? "bg-gray-400 cursor-not-allowed" : "bg-[#00df9a] hover:bg-green-700"
               }`}
             >
@@ -104,7 +132,7 @@ const Blocks = () => {
             <button
               onClick={handleNext}
               disabled={page >= Math.ceil(totalBlocks / limit)}
-              className={`px-6 py-2 rounded-md text-white ${
+              className={`w-full sm:w-auto px-6 py-2 rounded-md text-white ${
                 page >= Math.ceil(totalBlocks / limit) ? "bg-gray-400 cursor-not-allowed" : "bg-[#00df9a] hover:bg-green-700"
               }`}
             >

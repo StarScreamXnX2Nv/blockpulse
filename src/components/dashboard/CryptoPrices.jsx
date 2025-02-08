@@ -18,7 +18,7 @@ const CryptoPrices = ({ theme }) => {
               order: "market_cap_desc",
               per_page: 7,
               page: 1,
-              sparkline: false,
+              sparkline: false, 
             },
           }
         );

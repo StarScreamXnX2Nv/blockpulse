@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 
@@ -19,10 +19,9 @@ import BlockDetails from "./components/BlockDetails";
 import TransactionDetails from "./components/TransactionDetails";
 
 function App() {
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
 
-  // 🌙 Global Theme State
+
+  //  Global Theme State
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
   useEffect(() => {
@@ -37,7 +36,7 @@ function App() {
 
   return (
     <div className={`min-h-screen transition duration-300 ${theme === "dark" ? "bg-black text-white" : "bg-gray-100 text-black"}`}>
-      {/* 🌙 Pass theme & toggle function to Navbar */}
+      {/*  Pass theme & toggle function to Navbar */}
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       <div className="pt-24">

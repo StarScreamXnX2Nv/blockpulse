@@ -43,16 +43,16 @@ const TransactionDetails = () => {
           <p className="text-lg">
             <strong>Block Number:</strong> {transaction.blockNumber}
           </p>
-          <p className="text-lg">
+          <p className="text-lg break-words">
             <strong>Block Hash:</strong> {transaction.blockHash}
           </p>
-          <p className="text-lg">
+          <p className="text-lg break-words">
             <strong>Hash:</strong> {transaction.hash}
           </p>
-          <p className="text-lg">
+          <p className="text-lg break-words">
             <strong>From:</strong> {transaction.from}
           </p>
-          <p className="text-lg">
+          <p className="text-lg break-words">
             <strong>To:</strong> {transaction.to}
           </p>
           <p className="text-lg">
