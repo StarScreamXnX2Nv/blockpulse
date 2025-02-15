@@ -60,7 +60,7 @@ const CryptoPrices = ({ theme }) => {
                   <th className="border p-4">Last Trade</th>
                   <th className="border p-4">24H %</th>
                   <th className="border p-4">24H Change</th>
-                  <th className="border p-4">Action</th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -90,11 +90,7 @@ const CryptoPrices = ({ theme }) => {
                     >
                       ${coin.price_change_24h.toFixed(2)}
                     </td>
-                    <td className="border p-4">
-                      <button className="px-4 py-2 bg-[#00df9a] text-black rounded-md hover:bg-green-400">
-                        Trade
-                      </button>
-                    </td>
+                  
                   </tr>
                 ))}
               </tbody>
@@ -133,9 +129,7 @@ const CryptoPrices = ({ theme }) => {
                 >
                   <strong>24H Change:</strong> ${coin.price_change_24h.toFixed(2)}
                 </p>
-                <button className="w-full mt-4 px-4 py-2 bg-[#00df9a] text-black rounded-md hover:bg-green-400">
-                  Trade
-                </button>
+                
               </div>
             ))}
           </div>

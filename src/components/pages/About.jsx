@@ -23,7 +23,7 @@ const About = () => {
         <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-center text-black dark:text-white">Who We Are</h2>
           <p className="text-lg text-gray-700 dark:text-gray-300 mt-2">
-            We are a group of dedicated students from Ort Braude College, collaborating on an 
+            We are a group of dedicated students from Braude College, collaborating on an 
             exciting project as part of our bachelor's degree course. Our team is passionate about 
             harnessing the power of technology to make financial information more accessible and transparent.
           </p>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaFacebook, FaInstagram } from 'react-icons/fa';
+
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -27,10 +27,7 @@ const Footer = () => {
     >
       <h2 className="text-xl font-bold text-[#00df9a]">BlockPulse</h2>
       <p>Explore blockchain transactions, blocks, and more with BlockPulse.</p>
-      <div className="flex justify-center space-x-4 mt-4">
-        <FaFacebook size={24} />
-        <FaInstagram size={24} />
-      </div>
+      
     </footer>
   );
 };

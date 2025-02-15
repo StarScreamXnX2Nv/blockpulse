@@ -28,7 +28,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by hash, block, or address..."
+            placeholder="Search by hash"
             className={`px-4 py-2 rounded-md focus:outline-none transition-all duration-300 border ${theme === "dark" ? "bg-gray-800 text-white border-gray-600" : "bg-gray-200 text-black border-gray-400"}`}
           />
           <button type="submit" className="absolute right-3 top-2 text-gray-500 hover:text-[#00df9a]">
@@ -46,7 +46,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           <li><Link to="/dashboard" className="hover:text-[#00df9a]">Dashboard</Link></li>
         </ul>
 
-        {/* 🌙 Theme Toggle Button */}
+        {/*  Theme Toggle Button */}
         <button
           onClick={toggleTheme}
           className="ml-4 p-2 rounded-full transition-all duration-300 bg-gray-800 text-white hover:bg-gray-600"
@@ -54,7 +54,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           {theme === "dark" ? <FaSun size={20} className="text-yellow-400" /> : <FaMoon size={20} className="text-gray-800" />}
         </button>
 
-        {/* 🍔 Hamburger Menu Button */}
+        {/*  Hamburger Menu Button */}
         <button
           className="md:hidden p-2 rounded-full transition-all duration-300 hover:bg-gray-700"
           onClick={() => setMenuOpen(!menuOpen)}
